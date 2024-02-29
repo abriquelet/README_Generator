@@ -2,14 +2,14 @@
 const inquirer = require('inquirer');
 //want to use file system on user computer.
 const fs = require('fs');
-// TODO: Create an array of questions for user input
-inquirer
-    .prompt([
+//link to the other js doc.  
+const generateMarkdown = require('./Develop/utils/generateMarkdown.js'); //links to generateMarkdown
+const questions = [
     {
         type: 'input',
         message: 'What is the title of your project?',
         name: 'title',
-        validate: function(titleInput) { //adding these to force the user to add fields I believe to be important. 
+        validate: function(titleInput) {
             if (titleInput) {
                 return true;
             } else {
@@ -91,13 +91,15 @@ inquirer
             }
         }
     }
-]);
-
+];
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
-
+const createREADME = function writeToFile(fileName, data) {
+    fs.writeToFile('README.md, data, err')
+    if(err) {
+        console.log('Error creating README', err);
+    } else {
+        console.log("README has been created successfully.")
+    }
+};
 // TODO: Create a function to initialize app
 function init() {}
-
-// Function call to initialize app
-init();
