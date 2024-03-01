@@ -63,7 +63,7 @@ const questions = [
         type: 'list',
         message: 'Which license would you like to use?',
         name: 'license',
-        choices: ['MIT', 'none'] //
+        choices: ['MIT', 'none'] 
     },
     {
         type: 'input',
