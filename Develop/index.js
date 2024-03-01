@@ -2,14 +2,14 @@
 const inquirer = require('inquirer');
 //want to use file system on user computer.
 const fs = require('fs');
-// TODO: Create an array of questions for user input
-inquirer
-    .prompt([
+//link to the other js doc.  
+const generateMarkdown = require('./utils/generateMarkdown.js'); //links to generateMarkdown
+const questions = [
     {
         type: 'input',
         message: 'What is the title of your project?',
         name: 'title',
-        validate: function(titleInput) { //adding these to force the user to add fields I believe to be important. 
+        validate: function (titleInput) {
             if (titleInput) {
                 return true;
             } else {
@@ -22,7 +22,7 @@ inquirer
         type: 'input',
         message: 'Please provide a description of your project:',
         name: 'description',
-        validate: function(descriptionInput) {
+        validate: function (descriptionInput) {
             if (descriptionInput) {
                 return true;
             } else {
@@ -45,7 +45,7 @@ inquirer
         type: 'input',
         message: 'Please add contribution guidelines so fellow devs know how they will be permitted to contribute to your project:',
         name: 'contribution',
-        validate: function(contributionInput) {
+        validate: function (contributionInput) {
             if (contributionInput) {
                 return true;
             } else {
@@ -63,13 +63,13 @@ inquirer
         type: 'list',
         message: 'Which license would you like to use?',
         name: 'license',
-        choices: ['MIT', 'MPL-2.0', 'GPL', 'CC', 'MS-PL', 'none'] //
+        choices: ['MIT', 'none'] //
     },
     {
         type: 'input',
         message: 'What is your GitHub username?',
         name: 'github',
-        validate: function(githubInput) {
+        validate: function (githubInput) {
             if (githubInput) {
                 return true;
             } else {
@@ -82,7 +82,7 @@ inquirer
         type: 'input',
         message: 'What is your email address?',
         name: 'email',
-        validate: function(emailInput) {
+        validate: function (emailInput) {
             if (emailInput) {
                 return true;
             } else {
@@ -91,13 +91,27 @@ inquirer
             }
         }
     }
-]);
+];
+//Create a function to write README file
+function writeFile(fileName, data) {
+    fs.writeFile('README.md, data, error') 
+    if (error) {
+        console.log('Error creating README', error);
+    } else {
+        console.log("README has been created successfully.")
+    }
+};
+//Create a function to initialize app
+function init() {
+    inquirer.prompt(questions)
+        .then(function (userInput) {
+            let markdownContent = generateMarkdown(userInput);
+            writeToFile('.dist/README.md', markdownContent);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+}
 
-// TODO: Create a function to initialize app
-function init() {}
-
-// Function call to initialize app
-init();
+init(); //calling above
