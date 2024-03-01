@@ -94,19 +94,20 @@ const questions = [
 ];
 //Create a function to write README file
 function writeFile(fileName, data) {
-    fs.writeFile('README.md, data, error') 
-    if (error) {
-        console.log('Error creating README', error);
-    } else {
-        console.log("README has been created successfully.")
-    }
-};
+    fs.writeFile(fileName, data, (error) => {
+        if (error) {
+            console.log('Error creating README', error);
+        } else {
+            console.log("README has been created successfully.")
+        }
+    });
+}
 //Create a function to initialize app
 function init() {
     inquirer.prompt(questions)
         .then(function (userInput) {
             let markdownContent = generateMarkdown(userInput);
-            writeToFile('.dist/README.md', markdownContent);
+            writeFile('README.md', markdownContent);
         })
         .catch(function (error) {
             console.log(error);
